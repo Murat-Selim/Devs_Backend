@@ -1,7 +1,0 @@
-package programmingLanguage.dataAccess.concretes;
-
-import programmingLanguage.dataAccess.abstracts.ProgrammingLanguageRepository;
-
-public class InMemoryProgrammingLanguage implements ProgrammingLanguageRepository{
-
-}
