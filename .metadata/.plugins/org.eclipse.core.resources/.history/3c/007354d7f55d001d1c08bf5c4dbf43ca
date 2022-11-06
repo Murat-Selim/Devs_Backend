@@ -1,0 +1,7 @@
+package programmingLanguage.business.concretes;
+
+import programmingLanguage.business.abstracts.ProgrammingLanguageService;
+
+public class ProgrammingLanguageManager implements ProgrammingLanguageService {
+
+}

@@ -1,0 +1,5 @@
+package programmingLanguage.business.abstracts;
+
+public interface ProgrammingLanguageService {
+
+}

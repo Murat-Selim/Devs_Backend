@@ -1,0 +1,5 @@
+package programmingLanguage.dataAccess.abstracts;
+
+public interface ProgrammingLanguageRepository {
+
+}
