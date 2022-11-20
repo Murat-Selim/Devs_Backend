@@ -1,13 +1,13 @@
-package programmingLanguage;
+package kodlamaio.Devs;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ProgrammingLanguageApplication {
+public class DevsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ProgrammingLanguageApplication.class, args);
+		SpringApplication.run(DevsApplication.class, args);
 	}
 
 }

@@ -1,8 +1,8 @@
-package programmingLanguage.dataAccess.abstracts;
+package kodlamaio.Devs.dataAccess.abstracts;
 
 import java.util.List;
 
-import programmingLanguage.entities.concretes.ProgrammingLanguage;
+import kodlamaio.Devs.entities.concretes.ProgrammingLanguage;
 
 public interface ProgrammingLanguageRepository {
 	

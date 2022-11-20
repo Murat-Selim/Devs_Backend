@@ -1,12 +1,12 @@
-package programmingLanguage.dataAccess.concretes;
+package kodlamaio.Devs.dataAccess.concretes;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import programmingLanguage.dataAccess.abstracts.ProgrammingLanguageRepository;
-import programmingLanguage.entities.concretes.ProgrammingLanguage;
+import kodlamaio.Devs.dataAccess.abstracts.ProgrammingLanguageRepository;
+import kodlamaio.Devs.entities.concretes.ProgrammingLanguage;
 
 @Repository
 public class InMemoryProgrammingLanguage implements ProgrammingLanguageRepository{

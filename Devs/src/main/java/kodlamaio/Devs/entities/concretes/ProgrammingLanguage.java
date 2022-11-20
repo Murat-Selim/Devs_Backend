@@ -1,4 +1,4 @@
-package programmingLanguage.entities.concretes;
+package kodlamaio.Devs.entities.concretes;
 
 public class ProgrammingLanguage {
 	private int id;

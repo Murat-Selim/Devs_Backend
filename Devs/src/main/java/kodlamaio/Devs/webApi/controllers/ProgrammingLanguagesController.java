@@ -1,4 +1,4 @@
-package programmingLanguage.webApi.controllers;
+package kodlamaio.Devs.webApi.controllers;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import programmingLanguage.business.abstracts.ProgrammingLanguageService;
-import programmingLanguage.entities.concretes.ProgrammingLanguage;
+import kodlamaio.Devs.business.abstracts.ProgrammingLanguageService;
+import kodlamaio.Devs.entities.concretes.ProgrammingLanguage;
 
 @RestController
 @RequestMapping("/api/programmingLanguages")

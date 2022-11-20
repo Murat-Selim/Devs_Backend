@@ -1,13 +1,13 @@
-package programmingLanguage.business.concretes;
+package kodlamaio.Devs.business.concretes;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import programmingLanguage.business.abstracts.ProgrammingLanguageService;
-import programmingLanguage.dataAccess.abstracts.ProgrammingLanguageRepository;
-import programmingLanguage.entities.concretes.ProgrammingLanguage;
+import kodlamaio.Devs.business.abstracts.ProgrammingLanguageService;
+import kodlamaio.Devs.dataAccess.abstracts.ProgrammingLanguageRepository;
+import kodlamaio.Devs.entities.concretes.ProgrammingLanguage;
 
 @Service
 public class ProgrammingLanguageManager implements ProgrammingLanguageService {

@@ -1,8 +1,8 @@
-package programmingLanguage.business.abstracts;
+package kodlamaio.Devs.business.abstracts;
 
 import java.util.List;
 
-import programmingLanguage.entities.concretes.ProgrammingLanguage;
+import kodlamaio.Devs.entities.concretes.ProgrammingLanguage;
 
 public interface ProgrammingLanguageService {
 	
