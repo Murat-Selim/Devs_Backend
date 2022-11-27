@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kodlamaio.Devs.business.abstracts.ProgrammingLanguageService;
-import kodlamaio.Devs.business.requests.CreateProgrammingLanguageRequest;
-import kodlamaio.Devs.business.requests.DeleteProgrammingLanguageRequest;
-import kodlamaio.Devs.business.requests.UpdateProgrammingLanguageRequest;
+import kodlamaio.Devs.business.requests.programmingLanguagesRequest.CreateProgrammingLanguageRequest;
+import kodlamaio.Devs.business.requests.programmingLanguagesRequest.DeleteProgrammingLanguageRequest;
+import kodlamaio.Devs.business.requests.programmingLanguagesRequest.UpdateProgrammingLanguageRequest;
 import kodlamaio.Devs.business.responses.GetAllProgrammingLanguagesResponse;
 import kodlamaio.Devs.entities.concretes.ProgrammingLanguage;
 

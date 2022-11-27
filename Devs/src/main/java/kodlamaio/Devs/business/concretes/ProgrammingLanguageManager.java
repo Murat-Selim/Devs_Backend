@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.Devs.business.abstracts.ProgrammingLanguageService;
-import kodlamaio.Devs.business.requests.CreateProgrammingLanguageRequest;
-import kodlamaio.Devs.business.requests.DeleteProgrammingLanguageRequest;
-import kodlamaio.Devs.business.requests.UpdateProgrammingLanguageRequest;
+import kodlamaio.Devs.business.requests.programmingLanguagesRequest.CreateProgrammingLanguageRequest;
+import kodlamaio.Devs.business.requests.programmingLanguagesRequest.DeleteProgrammingLanguageRequest;
+import kodlamaio.Devs.business.requests.programmingLanguagesRequest.UpdateProgrammingLanguageRequest;
 import kodlamaio.Devs.business.responses.GetAllProgrammingLanguagesResponse;
 import kodlamaio.Devs.dataAccess.abstracts.ProgrammingLanguageRepository;
 import kodlamaio.Devs.entities.concretes.ProgrammingLanguage;
