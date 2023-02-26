@@ -1,4 +1,4 @@
-package kodlamaio.Devs.business.requests.programmingLanguagesRequest;
+package kodlamaio.Devs.business.responses.programmingLanguagesResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DeleteProgrammingLanguageRequest {
+public class GetAllProgrammingLanguagesResponse {
     private int id;
+    private String name;
 }

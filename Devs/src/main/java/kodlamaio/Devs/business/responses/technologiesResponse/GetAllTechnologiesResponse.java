@@ -1,4 +1,4 @@
-package kodlamaio.Devs.business.responses;
+package kodlamaio.Devs.business.responses.technologiesResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 
 import kodlamaio.Devs.business.abstracts.ProgrammingLanguageService;
 import kodlamaio.Devs.business.requests.programmingLanguagesRequest.CreateProgrammingLanguageRequest;
-import kodlamaio.Devs.business.requests.programmingLanguagesRequest.DeleteProgrammingLanguageRequest;
 import kodlamaio.Devs.business.requests.programmingLanguagesRequest.UpdateProgrammingLanguageRequest;
-import kodlamaio.Devs.business.responses.GetAllProgrammingLanguagesResponse;
+import kodlamaio.Devs.business.responses.programmingLanguagesResponse.GetAllProgrammingLanguagesResponse;
+import kodlamaio.Devs.business.responses.programmingLanguagesResponse.GetByIdLanguageResponse;
 import kodlamaio.Devs.dataAccess.abstracts.ProgrammingLanguageRepository;
 import kodlamaio.Devs.entities.concretes.ProgrammingLanguage;
 
@@ -43,8 +43,13 @@ public class ProgrammingLanguageManager implements ProgrammingLanguageService {
 	}
 
 	@Override
-	public ProgrammingLanguage getLanguageById(int id) {
-		return programmingLanguageRepository.findById(id).get();
+	public GetByIdLanguageResponse getByIdLanguage(int id) {
+		ProgrammingLanguage programmingLanguage = programmingLanguageRepository.findById(id).orElseThrow();
+		
+		GetByIdLanguageResponse response = new GetByIdLanguageResponse();
+		response.setId(programmingLanguage.getId());
+		
+		return response;
 	}
 
 	@Override
@@ -77,12 +82,8 @@ public class ProgrammingLanguageManager implements ProgrammingLanguageService {
 	}
 
 	@Override
-	public void delete(DeleteProgrammingLanguageRequest deleteProgrammingLanguageRequest) {
-		ProgrammingLanguage programmingLanguage = new ProgrammingLanguage();
-		programmingLanguage.setId(deleteProgrammingLanguageRequest.getId());
-		
-		ProgrammingLanguage languages = programmingLanguageRepository.findById(programmingLanguage.getId()).get();
-        programmingLanguageRepository.delete(languages);
+	public void delete(int id) {
+		this.programmingLanguageRepository.deleteById(id);
 		
 	}
 

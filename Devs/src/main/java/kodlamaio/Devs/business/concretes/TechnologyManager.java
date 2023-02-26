@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 
 import kodlamaio.Devs.business.abstracts.TechnologyService;
 import kodlamaio.Devs.business.requests.technologiesRequest.CreateTechnologyRequest;
-import kodlamaio.Devs.business.requests.technologiesRequest.DeleteTechnologyRequest;
 import kodlamaio.Devs.business.requests.technologiesRequest.UpdateTechnologyRequest;
-import kodlamaio.Devs.business.responses.GetAllTechnologiesResponse;
+import kodlamaio.Devs.business.responses.technologiesResponse.GetAllTechnologiesResponse;
+import kodlamaio.Devs.business.responses.technologiesResponse.GetByIdTechnologyResponse;
 import kodlamaio.Devs.dataAccess.abstracts.TechnologyRepository;
 import kodlamaio.Devs.entities.concretes.Technology;
 
@@ -39,6 +39,16 @@ public class TechnologyManager implements TechnologyService {
 		return technologiesResponse;
 	}
 
+	@Override
+	public GetByIdTechnologyResponse getByIdTechnology(int id) {
+		Technology technology = technologyRepository.findById(id).orElseThrow();
+		
+		GetByIdTechnologyResponse response = new GetByIdTechnologyResponse();
+		response.setId(technology.getId());
+		
+		return response;
+	}
+	
 	@Override
 	public void add(CreateTechnologyRequest createTechnologyRequest) throws Exception{
 		Technology technology = new Technology();
@@ -69,12 +79,8 @@ public class TechnologyManager implements TechnologyService {
 	}
 
 	@Override
-	public void delete(DeleteTechnologyRequest deleteTechnologyRequest) {
-		Technology technology = new Technology();
-		technology.setId(deleteTechnologyRequest.getId());
-		
-		Technology technologies = technologyRepository.findById(technology.getId()).get();
-		technologyRepository.delete(technologies);
+	public void delete(int id) {
+		this.technologyRepository.deleteById(id);
 		
 	}
 
