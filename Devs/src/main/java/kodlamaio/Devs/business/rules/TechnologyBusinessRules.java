@@ -1,0 +1,50 @@
+package kodlamaio.Devs.business.rules;
+
+import kodlamaio.Devs.core.exceptions.BusinessException;
+import kodlamaio.Devs.dataAccess.abstracts.TechnologyRepository;
+import kodlamaio.Devs.entities.concretes.Technology;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class TechnologyBusinessRules {
+    
+    private TechnologyRepository technologyRepository;
+    
+    @Autowired
+    public TechnologyBusinessRules(TechnologyRepository technologyRepository) {
+        this.technologyRepository = technologyRepository;
+    }
+    
+    public void checkIfTechnologyNameIsEmpty(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new BusinessException("Technology name cannot be empty.");
+        }
+    }
+    
+    public void checkIfTechnologyExists(String name) {
+        List<Technology> technologies = technologyRepository.findAll();
+        for (Technology technology : technologies) {
+            if (technology.getName().equalsIgnoreCase(name)) {
+                throw new BusinessException("Technology already exists: " + name);
+            }
+        }
+    }
+    
+    public void checkIfTechnologyExistsForUpdate(String name, int id) {
+        List<Technology> technologies = technologyRepository.findAll();
+        for (Technology technology : technologies) {
+            if (technology.getName().equalsIgnoreCase(name) && technology.getId() != id) {
+                throw new BusinessException("Technology already exists: " + name);
+            }
+        }
+    }
+    
+    public void checkIfTechnologyExistsById(int id) {
+        if (!technologyRepository.existsById(id)) {
+            throw new BusinessException("Technology not found with id: " + id);
+        }
+    }
+}

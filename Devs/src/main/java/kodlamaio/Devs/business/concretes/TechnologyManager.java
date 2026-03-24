@@ -1,6 +1,5 @@
 package kodlamaio.Devs.business.concretes;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,34 +10,35 @@ import kodlamaio.Devs.business.requests.technologiesRequest.CreateTechnologyRequ
 import kodlamaio.Devs.business.requests.technologiesRequest.UpdateTechnologyRequest;
 import kodlamaio.Devs.business.responses.technologiesResponse.GetAllTechnologiesResponse;
 import kodlamaio.Devs.business.responses.technologiesResponse.GetByIdTechnologyResponse;
-import kodlamaio.Devs.core.exceptions.BusinessException;
+import kodlamaio.Devs.business.rules.TechnologyBusinessRules;
 import kodlamaio.Devs.core.exceptions.NotFoundException;
+import kodlamaio.Devs.core.mappers.TechnologyMapper;
+import kodlamaio.Devs.core.mappers.TechnologyRequestMapper;
 import kodlamaio.Devs.dataAccess.abstracts.TechnologyRepository;
 import kodlamaio.Devs.entities.concretes.Technology;
 
 @Service
 public class TechnologyManager implements TechnologyService {
 	private TechnologyRepository technologyRepository;
+	private final TechnologyMapper technologyMapper;
+	private final TechnologyRequestMapper technologyRequestMapper;
+	private final TechnologyBusinessRules technologyBusinessRules;
 
 	@Autowired
-	public TechnologyManager(TechnologyRepository technologyRepository) {
+	public TechnologyManager(TechnologyRepository technologyRepository,
+			TechnologyMapper technologyMapper,
+			TechnologyRequestMapper technologyRequestMapper,
+			TechnologyBusinessRules technologyBusinessRules) {
 		this.technologyRepository = technologyRepository;
+		this.technologyMapper = technologyMapper;
+		this.technologyRequestMapper = technologyRequestMapper;
+		this.technologyBusinessRules = technologyBusinessRules;
 	}
 
 	@Override
 	public List<GetAllTechnologiesResponse> getAll() {
 		List<Technology> technologies = technologyRepository.findAll();
-        List<GetAllTechnologiesResponse> technologiesResponse = new ArrayList<GetAllTechnologiesResponse>();
-        
-        for (Technology technology : technologies) {
-			GetAllTechnologiesResponse responseItem = new GetAllTechnologiesResponse();
-			responseItem.setId(technology.getId());
-			responseItem.setName(technology.getName());
-			
-			technologiesResponse.add(responseItem);
-		}
-        
-		return technologiesResponse;
+        return technologyMapper.toGetAllTechnologiesResponseList(technologies);
 	}
 
 	@Override
@@ -46,26 +46,15 @@ public class TechnologyManager implements TechnologyService {
 		Technology technology = technologyRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Technology not found with id: " + id));
 		
-		GetByIdTechnologyResponse response = new GetByIdTechnologyResponse();
-		response.setId(technology.getId());
-		
-		return response;
+		return technologyMapper.toGetByIdTechnologyResponse(technology);
 	}
 	
 	@Override
 	public void add(CreateTechnologyRequest createTechnologyRequest) {
-		Technology technology = new Technology();
-		technology.setName(createTechnologyRequest.getName());
+		Technology technology = technologyRequestMapper.toEntity(createTechnologyRequest);
 		
-		if(technology.getName().isEmpty() || technology.getName().trim().isEmpty()) {
-			throw new BusinessException("Technology name cannot be empty.");
-		}
-		
-		for (Technology technologies : technologyRepository.findAll()) {
-            if (technologies.getName().equalsIgnoreCase(technology.getName())) {
-                throw new BusinessException("Technology already exists: " + technology.getName());
-            }
-        }
+		technologyBusinessRules.checkIfTechnologyNameIsEmpty(technology.getName());
+		technologyBusinessRules.checkIfTechnologyExists(technology.getName());
 		
 		technologyRepository.save(technology);
 		
@@ -73,9 +62,12 @@ public class TechnologyManager implements TechnologyService {
 
 	@Override
 	public void update(UpdateTechnologyRequest updateTechnologyRequest) {
-		Technology technology = new Technology();
-		technology.setId(updateTechnologyRequest.getId());
-		technology.setName(updateTechnologyRequest.getName());
+		technologyBusinessRules.checkIfTechnologyExistsById(updateTechnologyRequest.getId());
+		
+		Technology technology = technologyRequestMapper.toEntity(updateTechnologyRequest);
+		
+		technologyBusinessRules.checkIfTechnologyNameIsEmpty(technology.getName());
+		technologyBusinessRules.checkIfTechnologyExistsForUpdate(technology.getName(), technology.getId());
 		
 		technologyRepository.save(technology);
 		

@@ -1,6 +1,5 @@
 package kodlamaio.Devs.business.concretes;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +10,10 @@ import kodlamaio.Devs.business.requests.programmingLanguagesRequest.CreateProgra
 import kodlamaio.Devs.business.requests.programmingLanguagesRequest.UpdateProgrammingLanguageRequest;
 import kodlamaio.Devs.business.responses.programmingLanguagesResponse.GetAllProgrammingLanguagesResponse;
 import kodlamaio.Devs.business.responses.programmingLanguagesResponse.GetByIdLanguageResponse;
-import kodlamaio.Devs.core.exceptions.BusinessException;
+import kodlamaio.Devs.business.rules.ProgrammingLanguageBusinessRules;
 import kodlamaio.Devs.core.exceptions.NotFoundException;
+import kodlamaio.Devs.core.mappers.ProgrammingLanguageMapper;
+import kodlamaio.Devs.core.mappers.ProgrammingLanguageRequestMapper;
 import kodlamaio.Devs.dataAccess.abstracts.ProgrammingLanguageRepository;
 import kodlamaio.Devs.entities.concretes.ProgrammingLanguage;
 
@@ -20,28 +21,25 @@ import kodlamaio.Devs.entities.concretes.ProgrammingLanguage;
 public class ProgrammingLanguageManager implements ProgrammingLanguageService {
 	
 	private ProgrammingLanguageRepository programmingLanguageRepository;
+	private final ProgrammingLanguageMapper programmingLanguageMapper;
+	private final ProgrammingLanguageRequestMapper programmingLanguageRequestMapper;
+	private final ProgrammingLanguageBusinessRules programmingLanguageBusinessRules;
 
 	@Autowired
-	public ProgrammingLanguageManager(ProgrammingLanguageRepository programmingLanguageRepository) {
+	public ProgrammingLanguageManager(ProgrammingLanguageRepository programmingLanguageRepository,
+			ProgrammingLanguageMapper programmingLanguageMapper,
+			ProgrammingLanguageRequestMapper programmingLanguageRequestMapper,
+			ProgrammingLanguageBusinessRules programmingLanguageBusinessRules) {
 		this.programmingLanguageRepository = programmingLanguageRepository;
+		this.programmingLanguageMapper = programmingLanguageMapper;
+		this.programmingLanguageRequestMapper = programmingLanguageRequestMapper;
+		this.programmingLanguageBusinessRules = programmingLanguageBusinessRules;
 	}
 
 	@Override
 	public List<GetAllProgrammingLanguagesResponse> getAll() {
 		List<ProgrammingLanguage> languages = programmingLanguageRepository.findAll();
-		List<GetAllProgrammingLanguagesResponse> programmingLanguagesResponse = new ArrayList<GetAllProgrammingLanguagesResponse>();
-		
-		for (ProgrammingLanguage language : languages) {
-			GetAllProgrammingLanguagesResponse responseItem = new GetAllProgrammingLanguagesResponse();
-			responseItem.setId(language.getId());
-			responseItem.setName(language.getName());
-			
-			programmingLanguagesResponse.add(responseItem);
-			
-		}
-		
-		return programmingLanguagesResponse;
-
+		return programmingLanguageMapper.toGetAllProgrammingLanguagesResponseList(languages);
 	}
 
 	@Override
@@ -49,36 +47,29 @@ public class ProgrammingLanguageManager implements ProgrammingLanguageService {
 		ProgrammingLanguage programmingLanguage = programmingLanguageRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Programming language not found with id: " + id));
 		
-		GetByIdLanguageResponse response = new GetByIdLanguageResponse();
-		response.setId(programmingLanguage.getId());
-		
-		return response;
+		return programmingLanguageMapper.toGetByIdLanguageResponse(programmingLanguage);
 	}
 
 	@Override
 	public void add(CreateProgrammingLanguageRequest createProgrammingLanguageRequest) {
-		ProgrammingLanguage programmingLanguage = new ProgrammingLanguage();
-		programmingLanguage.setName(createProgrammingLanguageRequest.getName());
+		ProgrammingLanguage programmingLanguage = programmingLanguageRequestMapper.toEntity(createProgrammingLanguageRequest);
 		
-		if (programmingLanguage.getName().isEmpty() || programmingLanguage.getName().trim().isEmpty()) {
-            throw new BusinessException("Programming language name cannot be empty.");
-        }
-        
-        for (ProgrammingLanguage language : programmingLanguageRepository.findAll()) {
-            if (language.getName().equalsIgnoreCase(programmingLanguage.getName())) {
-                throw new BusinessException("Programming language already exists: " + programmingLanguage.getName());
-            }
-        }
+		programmingLanguageBusinessRules.checkIfProgrammingLanguageNameIsEmpty(programmingLanguage.getName());
+		programmingLanguageBusinessRules.checkIfProgrammingLanguageExists(programmingLanguage.getName());
 
-        programmingLanguageRepository.save(programmingLanguage);
+		programmingLanguageRepository.save(programmingLanguage);
 		
 	}
 
+
 	@Override
 	public void update(UpdateProgrammingLanguageRequest updateProgrammingLanguageRequest) {
-		ProgrammingLanguage programmingLanguage = new ProgrammingLanguage();
-		programmingLanguage.setId(updateProgrammingLanguageRequest.getId());
-		programmingLanguage.setName(updateProgrammingLanguageRequest.getName());
+		programmingLanguageBusinessRules.checkIfProgrammingLanguageExistsById(updateProgrammingLanguageRequest.getId());
+		
+		ProgrammingLanguage programmingLanguage = programmingLanguageRequestMapper.toEntity(updateProgrammingLanguageRequest);
+		
+		programmingLanguageBusinessRules.checkIfProgrammingLanguageNameIsEmpty(programmingLanguage.getName());
+		programmingLanguageBusinessRules.checkIfProgrammingLanguageExistsForUpdate(programmingLanguage.getName(), programmingLanguage.getId());
 		
 		programmingLanguageRepository.save(programmingLanguage);
 		
