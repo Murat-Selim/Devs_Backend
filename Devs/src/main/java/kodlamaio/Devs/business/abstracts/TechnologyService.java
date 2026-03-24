@@ -10,7 +10,7 @@ import kodlamaio.Devs.business.responses.technologiesResponse.GetByIdTechnologyR
 public interface TechnologyService {
 	List<GetAllTechnologiesResponse> getAll();
 	GetByIdTechnologyResponse getByIdTechnology(int id);
-	void add(CreateTechnologyRequest createTechnologyRequest) throws Exception;
+	void add(CreateTechnologyRequest createTechnologyRequest);
 	void update(UpdateTechnologyRequest updateTechnologyRequest);
 	void delete(int id);
 

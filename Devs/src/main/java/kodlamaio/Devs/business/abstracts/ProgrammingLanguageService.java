@@ -11,7 +11,7 @@ public interface ProgrammingLanguageService {
 	
 	List<GetAllProgrammingLanguagesResponse> getAll();
 	GetByIdLanguageResponse getByIdLanguage(int id);
-	void add(CreateProgrammingLanguageRequest createProgrammingLanguageRequest) throws Exception;
+	void add(CreateProgrammingLanguageRequest createProgrammingLanguageRequest);
 	void update(UpdateProgrammingLanguageRequest updateProgrammingLanguageRequest);
 	void delete(int id);
 

@@ -11,6 +11,8 @@ import kodlamaio.Devs.business.requests.programmingLanguagesRequest.CreateProgra
 import kodlamaio.Devs.business.requests.programmingLanguagesRequest.UpdateProgrammingLanguageRequest;
 import kodlamaio.Devs.business.responses.programmingLanguagesResponse.GetAllProgrammingLanguagesResponse;
 import kodlamaio.Devs.business.responses.programmingLanguagesResponse.GetByIdLanguageResponse;
+import kodlamaio.Devs.core.exceptions.BusinessException;
+import kodlamaio.Devs.core.exceptions.NotFoundException;
 import kodlamaio.Devs.dataAccess.abstracts.ProgrammingLanguageRepository;
 import kodlamaio.Devs.entities.concretes.ProgrammingLanguage;
 
@@ -44,7 +46,8 @@ public class ProgrammingLanguageManager implements ProgrammingLanguageService {
 
 	@Override
 	public GetByIdLanguageResponse getByIdLanguage(int id) {
-		ProgrammingLanguage programmingLanguage = programmingLanguageRepository.findById(id).orElseThrow();
+		ProgrammingLanguage programmingLanguage = programmingLanguageRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Programming language not found with id: " + id));
 		
 		GetByIdLanguageResponse response = new GetByIdLanguageResponse();
 		response.setId(programmingLanguage.getId());
@@ -53,17 +56,17 @@ public class ProgrammingLanguageManager implements ProgrammingLanguageService {
 	}
 
 	@Override
-	public void add(CreateProgrammingLanguageRequest createProgrammingLanguageRequest) throws Exception {
+	public void add(CreateProgrammingLanguageRequest createProgrammingLanguageRequest) {
 		ProgrammingLanguage programmingLanguage = new ProgrammingLanguage();
 		programmingLanguage.setName(createProgrammingLanguageRequest.getName());
 		
-		if (programmingLanguage.getName().isEmpty()) {
-            throw new Exception("Programming language cannot be empty.");
+		if (programmingLanguage.getName().isEmpty() || programmingLanguage.getName().trim().isEmpty()) {
+            throw new BusinessException("Programming language name cannot be empty.");
         }
-		
+        
         for (ProgrammingLanguage language : programmingLanguageRepository.findAll()) {
-            if (language.getName().equals(programmingLanguage.getName())) {
-                throw new Exception("Programming language cannot be repeated");
+            if (language.getName().equalsIgnoreCase(programmingLanguage.getName())) {
+                throw new BusinessException("Programming language already exists: " + programmingLanguage.getName());
             }
         }
 

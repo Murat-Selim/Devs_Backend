@@ -42,7 +42,7 @@ public class ProgrammingLanguagesController {
 	
 	@PostMapping()
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public void add(@RequestBody() CreateProgrammingLanguageRequest createProgrammingLanguageRequest) throws Exception{
+	public void add(@RequestBody() CreateProgrammingLanguageRequest createProgrammingLanguageRequest) {
 		programmingLanguageService.add(createProgrammingLanguageRequest);
 	}
 	

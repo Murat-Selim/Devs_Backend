@@ -42,7 +42,7 @@ public class TechnologiesController {
 	
 	@PostMapping()
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public void add(@RequestBody() CreateTechnologyRequest createTechnologyRequest) throws Exception{
+	public void add(@RequestBody() CreateTechnologyRequest createTechnologyRequest) {
 		technologyService.add(createTechnologyRequest);
 	}
 	

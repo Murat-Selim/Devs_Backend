@@ -11,6 +11,8 @@ import kodlamaio.Devs.business.requests.technologiesRequest.CreateTechnologyRequ
 import kodlamaio.Devs.business.requests.technologiesRequest.UpdateTechnologyRequest;
 import kodlamaio.Devs.business.responses.technologiesResponse.GetAllTechnologiesResponse;
 import kodlamaio.Devs.business.responses.technologiesResponse.GetByIdTechnologyResponse;
+import kodlamaio.Devs.core.exceptions.BusinessException;
+import kodlamaio.Devs.core.exceptions.NotFoundException;
 import kodlamaio.Devs.dataAccess.abstracts.TechnologyRepository;
 import kodlamaio.Devs.entities.concretes.Technology;
 
@@ -41,7 +43,8 @@ public class TechnologyManager implements TechnologyService {
 
 	@Override
 	public GetByIdTechnologyResponse getByIdTechnology(int id) {
-		Technology technology = technologyRepository.findById(id).orElseThrow();
+		Technology technology = technologyRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Technology not found with id: " + id));
 		
 		GetByIdTechnologyResponse response = new GetByIdTechnologyResponse();
 		response.setId(technology.getId());
@@ -50,17 +53,17 @@ public class TechnologyManager implements TechnologyService {
 	}
 	
 	@Override
-	public void add(CreateTechnologyRequest createTechnologyRequest) throws Exception{
+	public void add(CreateTechnologyRequest createTechnologyRequest) {
 		Technology technology = new Technology();
 		technology.setName(createTechnologyRequest.getName());
 		
-		if(technology.getName().isEmpty()) {
-			throw new Exception("Technology cannot be empty.");
+		if(technology.getName().isEmpty() || technology.getName().trim().isEmpty()) {
+			throw new BusinessException("Technology name cannot be empty.");
 		}
 		
 		for (Technology technologies : technologyRepository.findAll()) {
-            if (technologies.getName().equals(technology.getName())) {
-                throw new Exception("Technology cannot be repeated");
+            if (technologies.getName().equalsIgnoreCase(technology.getName())) {
+                throw new BusinessException("Technology already exists: " + technology.getName());
             }
         }
 		
