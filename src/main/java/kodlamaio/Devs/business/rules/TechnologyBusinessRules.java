@@ -5,20 +5,17 @@ import kodlamaio.Devs.core.exceptions.NotFoundException;
 import kodlamaio.Devs.core.exceptions.ValidationException;
 import kodlamaio.Devs.dataAccess.abstracts.TechnologyRepository;
 import kodlamaio.Devs.entities.concretes.Technology;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class TechnologyBusinessRules {
     
-    private TechnologyRepository technologyRepository;
-    
-    @Autowired
-    public TechnologyBusinessRules(TechnologyRepository technologyRepository) {
-        this.technologyRepository = technologyRepository;
-    }
+    private final TechnologyRepository technologyRepository;
     
     public void checkIfTechnologyNameIsEmpty(String name) {
         if (name == null || name.trim().isEmpty()) {

@@ -2,7 +2,6 @@ package kodlamaio.Devs.business.concretes;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.Devs.business.abstracts.TechnologyService;
@@ -16,24 +15,15 @@ import kodlamaio.Devs.core.mappers.technologyMapper.TechnologyMapper;
 import kodlamaio.Devs.core.mappers.technologyMapper.TechnologyRequestMapper;
 import kodlamaio.Devs.dataAccess.abstracts.TechnologyRepository;
 import kodlamaio.Devs.entities.concretes.Technology;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class TechnologyManager implements TechnologyService {
-	private TechnologyRepository technologyRepository;
+	private final TechnologyRepository technologyRepository;
 	private final TechnologyMapper technologyMapper;
 	private final TechnologyRequestMapper technologyRequestMapper;
 	private final TechnologyBusinessRules technologyBusinessRules;
-
-	@Autowired
-	public TechnologyManager(TechnologyRepository technologyRepository,
-			TechnologyMapper technologyMapper,
-			TechnologyRequestMapper technologyRequestMapper,
-			TechnologyBusinessRules technologyBusinessRules) {
-		this.technologyRepository = technologyRepository;
-		this.technologyMapper = technologyMapper;
-		this.technologyRequestMapper = technologyRequestMapper;
-		this.technologyBusinessRules = technologyBusinessRules;
-	}
 
 	@Override
 	public List<GetAllTechnologiesResponse> getAll() {

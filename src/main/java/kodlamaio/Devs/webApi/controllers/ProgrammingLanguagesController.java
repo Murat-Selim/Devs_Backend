@@ -2,7 +2,6 @@ package kodlamaio.Devs.webApi.controllers;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,16 +18,13 @@ import kodlamaio.Devs.business.requests.programmingLanguagesRequest.CreateProgra
 import kodlamaio.Devs.business.requests.programmingLanguagesRequest.UpdateProgrammingLanguageRequest;
 import kodlamaio.Devs.business.responses.programmingLanguagesResponse.GetAllProgrammingLanguagesResponse;
 import kodlamaio.Devs.business.responses.programmingLanguagesResponse.GetByIdLanguageResponse;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/programmingLanguages")
+@RequiredArgsConstructor
 public class ProgrammingLanguagesController {
-	private ProgrammingLanguageService programmingLanguageService;
-
-	@Autowired
-	public ProgrammingLanguagesController(ProgrammingLanguageService programmingLanguageService) {
-		this.programmingLanguageService = programmingLanguageService;
-	}
+	private final ProgrammingLanguageService programmingLanguageService;
 	
 	@GetMapping()
 	public List<GetAllProgrammingLanguagesResponse> getAll() {

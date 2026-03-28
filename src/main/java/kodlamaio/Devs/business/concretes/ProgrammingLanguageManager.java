@@ -2,7 +2,6 @@ package kodlamaio.Devs.business.concretes;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.Devs.business.abstracts.ProgrammingLanguageService;
@@ -16,25 +15,16 @@ import kodlamaio.Devs.core.mappers.programmingLanguageMapper.ProgrammingLanguage
 import kodlamaio.Devs.core.mappers.programmingLanguageMapper.ProgrammingLanguageRequestMapper;
 import kodlamaio.Devs.dataAccess.abstracts.ProgrammingLanguageRepository;
 import kodlamaio.Devs.entities.concretes.ProgrammingLanguage;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class ProgrammingLanguageManager implements ProgrammingLanguageService {
 	
-	private ProgrammingLanguageRepository programmingLanguageRepository;
+	private final ProgrammingLanguageRepository programmingLanguageRepository;
 	private final ProgrammingLanguageMapper programmingLanguageMapper;
 	private final ProgrammingLanguageRequestMapper programmingLanguageRequestMapper;
 	private final ProgrammingLanguageBusinessRules programmingLanguageBusinessRules;
-
-	@Autowired
-	public ProgrammingLanguageManager(ProgrammingLanguageRepository programmingLanguageRepository,
-			ProgrammingLanguageMapper programmingLanguageMapper,
-			ProgrammingLanguageRequestMapper programmingLanguageRequestMapper,
-			ProgrammingLanguageBusinessRules programmingLanguageBusinessRules) {
-		this.programmingLanguageRepository = programmingLanguageRepository;
-		this.programmingLanguageMapper = programmingLanguageMapper;
-		this.programmingLanguageRequestMapper = programmingLanguageRequestMapper;
-		this.programmingLanguageBusinessRules = programmingLanguageBusinessRules;
-	}
 
 	@Override
 	public List<GetAllProgrammingLanguagesResponse> getAll() {

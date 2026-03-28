@@ -2,7 +2,6 @@ package kodlamaio.Devs.webApi.controllers;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,16 +18,13 @@ import kodlamaio.Devs.business.requests.technologiesRequest.CreateTechnologyRequ
 import kodlamaio.Devs.business.requests.technologiesRequest.UpdateTechnologyRequest;
 import kodlamaio.Devs.business.responses.technologiesResponse.GetAllTechnologiesResponse;
 import kodlamaio.Devs.business.responses.technologiesResponse.GetByIdTechnologyResponse;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/technologies")
+@RequiredArgsConstructor
 public class TechnologiesController {
-	private TechnologyService technologyService;
-
-	@Autowired
-	public TechnologiesController(TechnologyService technologyService) {
-		this.technologyService = technologyService;
-	}
+	private final TechnologyService technologyService;
 	
 	@GetMapping()
 	public List<GetAllTechnologiesResponse> getAll() {

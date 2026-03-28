@@ -5,20 +5,17 @@ import kodlamaio.Devs.core.exceptions.NotFoundException;
 import kodlamaio.Devs.core.exceptions.ValidationException;
 import kodlamaio.Devs.dataAccess.abstracts.ProgrammingLanguageRepository;
 import kodlamaio.Devs.entities.concretes.ProgrammingLanguage;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class ProgrammingLanguageBusinessRules {
     
-    private ProgrammingLanguageRepository programmingLanguageRepository;
-    
-    @Autowired
-    public ProgrammingLanguageBusinessRules(ProgrammingLanguageRepository programmingLanguageRepository) {
-        this.programmingLanguageRepository = programmingLanguageRepository;
-    }
+    private final ProgrammingLanguageRepository programmingLanguageRepository;
     
     public void checkIfProgrammingLanguageNameIsEmpty(String name) {
         if (name == null || name.trim().isEmpty()) {

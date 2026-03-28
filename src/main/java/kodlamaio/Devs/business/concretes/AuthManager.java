@@ -9,7 +9,8 @@ import kodlamaio.Devs.business.abstracts.AuthService;
 import kodlamaio.Devs.business.requests.authRequest.LoginRequest;
 import kodlamaio.Devs.business.requests.authRequest.RegisterRequest;
 import kodlamaio.Devs.business.responses.authResponse.AuthResponse;
-import kodlamaio.Devs.core.exceptions.BusinessException;
+import kodlamaio.Devs.business.rules.AuthBusinessRules;
+import kodlamaio.Devs.core.mappers.authMapper.AuthMapper;
 import kodlamaio.Devs.core.security.jwt.JwtService;
 import kodlamaio.Devs.dataAccess.abstracts.UserRepository;
 import kodlamaio.Devs.entities.concretes.User;
@@ -23,17 +24,15 @@ public class AuthManager implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final AuthBusinessRules authBusinessRules;
+    private final AuthMapper authMapper;
     
     @Override
     public AuthResponse register(RegisterRequest request) {
-        if (userRepository.existsByUsername(request.getUsername())) {
-            throw new BusinessException("Username already exists");
-        }
+        authBusinessRules.checkIfUsernameExists(request.getUsername());
         
-        User user = new User();
-        user.setUsername(request.getUsername());
+        User user = authMapper.toEntity(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole(request.getRole());
         
         userRepository.save(user);
         
