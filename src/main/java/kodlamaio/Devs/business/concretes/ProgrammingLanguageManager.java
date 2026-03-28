@@ -12,8 +12,8 @@ import kodlamaio.Devs.business.responses.programmingLanguagesResponse.GetAllProg
 import kodlamaio.Devs.business.responses.programmingLanguagesResponse.GetByIdLanguageResponse;
 import kodlamaio.Devs.business.rules.ProgrammingLanguageBusinessRules;
 import kodlamaio.Devs.core.exceptions.NotFoundException;
-import kodlamaio.Devs.core.mappers.ProgrammingLanguageMapper;
-import kodlamaio.Devs.core.mappers.ProgrammingLanguageRequestMapper;
+import kodlamaio.Devs.core.mappers.programmingLanguageMapper.ProgrammingLanguageMapper;
+import kodlamaio.Devs.core.mappers.programmingLanguageMapper.ProgrammingLanguageRequestMapper;
 import kodlamaio.Devs.dataAccess.abstracts.ProgrammingLanguageRepository;
 import kodlamaio.Devs.entities.concretes.ProgrammingLanguage;
 

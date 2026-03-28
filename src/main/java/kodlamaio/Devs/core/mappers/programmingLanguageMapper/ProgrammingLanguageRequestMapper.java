@@ -1,4 +1,4 @@
-package kodlamaio.Devs.core.mappers;
+package kodlamaio.Devs.core.mappers.programmingLanguageMapper;
 
 import kodlamaio.Devs.entities.concretes.ProgrammingLanguage;
 import kodlamaio.Devs.business.requests.programmingLanguagesRequest.CreateProgrammingLanguageRequest;

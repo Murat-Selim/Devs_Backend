@@ -1,6 +1,8 @@
 package kodlamaio.Devs.business.rules;
 
 import kodlamaio.Devs.core.exceptions.BusinessException;
+import kodlamaio.Devs.core.exceptions.NotFoundException;
+import kodlamaio.Devs.core.exceptions.ValidationException;
 import kodlamaio.Devs.dataAccess.abstracts.ProgrammingLanguageRepository;
 import kodlamaio.Devs.entities.concretes.ProgrammingLanguage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,7 @@ public class ProgrammingLanguageBusinessRules {
     
     public void checkIfProgrammingLanguageNameIsEmpty(String name) {
         if (name == null || name.trim().isEmpty()) {
-            throw new BusinessException("Programming language name cannot be empty.");
+            throw new ValidationException("Programming language name cannot be empty.");
         }
     }
     
@@ -44,7 +46,7 @@ public class ProgrammingLanguageBusinessRules {
     
     public void checkIfProgrammingLanguageExistsById(int id) {
         if (!programmingLanguageRepository.existsById(id)) {
-            throw new BusinessException("Programming language not found with id: " + id);
+            throw new NotFoundException("Programming language not found with id: " + id);
         }
     }
 }

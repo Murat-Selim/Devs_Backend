@@ -1,4 +1,4 @@
-package kodlamaio.Devs.core.mappers;
+package kodlamaio.Devs.core.mappers.technologyMapper;
 
 import kodlamaio.Devs.entities.concretes.Technology;
 import kodlamaio.Devs.business.requests.technologiesRequest.CreateTechnologyRequest;

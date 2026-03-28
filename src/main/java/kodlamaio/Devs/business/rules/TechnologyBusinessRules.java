@@ -1,6 +1,8 @@
 package kodlamaio.Devs.business.rules;
 
 import kodlamaio.Devs.core.exceptions.BusinessException;
+import kodlamaio.Devs.core.exceptions.NotFoundException;
+import kodlamaio.Devs.core.exceptions.ValidationException;
 import kodlamaio.Devs.dataAccess.abstracts.TechnologyRepository;
 import kodlamaio.Devs.entities.concretes.Technology;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,7 @@ public class TechnologyBusinessRules {
     
     public void checkIfTechnologyNameIsEmpty(String name) {
         if (name == null || name.trim().isEmpty()) {
-            throw new BusinessException("Technology name cannot be empty.");
+            throw new ValidationException("Technology name cannot be empty.");
         }
     }
     
@@ -44,7 +46,7 @@ public class TechnologyBusinessRules {
     
     public void checkIfTechnologyExistsById(int id) {
         if (!technologyRepository.existsById(id)) {
-            throw new BusinessException("Technology not found with id: " + id);
+            throw new NotFoundException("Technology not found with id: " + id);
         }
     }
 }

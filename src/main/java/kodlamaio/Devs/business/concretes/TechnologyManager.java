@@ -12,8 +12,8 @@ import kodlamaio.Devs.business.responses.technologiesResponse.GetAllTechnologies
 import kodlamaio.Devs.business.responses.technologiesResponse.GetByIdTechnologyResponse;
 import kodlamaio.Devs.business.rules.TechnologyBusinessRules;
 import kodlamaio.Devs.core.exceptions.NotFoundException;
-import kodlamaio.Devs.core.mappers.TechnologyMapper;
-import kodlamaio.Devs.core.mappers.TechnologyRequestMapper;
+import kodlamaio.Devs.core.mappers.technologyMapper.TechnologyMapper;
+import kodlamaio.Devs.core.mappers.technologyMapper.TechnologyRequestMapper;
 import kodlamaio.Devs.dataAccess.abstracts.TechnologyRepository;
 import kodlamaio.Devs.entities.concretes.Technology;
 
