@@ -2,6 +2,8 @@ package kodlamaio.Devs.webApi.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,12 +40,12 @@ public class TechnologiesController {
 	
 	@PostMapping()
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public void add(@RequestBody() CreateTechnologyRequest createTechnologyRequest) {
+	public void add(@Valid @RequestBody CreateTechnologyRequest createTechnologyRequest) {
 		technologyService.add(createTechnologyRequest);
 	}
 	
 	@PutMapping()
-	public void update(@RequestBody() UpdateTechnologyRequest updateTechnologyRequest) {
+	public void update(@Valid @RequestBody UpdateTechnologyRequest updateTechnologyRequest) {
 		technologyService.update(updateTechnologyRequest);
 	}
 	

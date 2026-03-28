@@ -2,6 +2,8 @@ package kodlamaio.Devs.webApi.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,12 +40,12 @@ public class ProgrammingLanguagesController {
 	
 	@PostMapping()
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public void add(@RequestBody() CreateProgrammingLanguageRequest createProgrammingLanguageRequest) {
+	public void add(@Valid @RequestBody CreateProgrammingLanguageRequest createProgrammingLanguageRequest) {
 		programmingLanguageService.add(createProgrammingLanguageRequest);
 	}
 	
 	@PutMapping("/update")
-	public void update(@RequestBody() UpdateProgrammingLanguageRequest updateProgrammingLanguageRequest) {
+	public void update(@Valid @RequestBody UpdateProgrammingLanguageRequest updateProgrammingLanguageRequest) {
 		programmingLanguageService.update(updateProgrammingLanguageRequest);
 	}
 	
