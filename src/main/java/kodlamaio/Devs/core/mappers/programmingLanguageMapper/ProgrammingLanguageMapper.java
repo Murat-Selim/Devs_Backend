@@ -5,15 +5,12 @@ import kodlamaio.Devs.business.responses.programmingLanguagesResponse.GetAllProg
 import kodlamaio.Devs.business.responses.programmingLanguagesResponse.GetByIdLanguageResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ProgrammingLanguageMapper {
-    
-    ProgrammingLanguageMapper INSTANCE = Mappers.getMapper(ProgrammingLanguageMapper.class);
-    
+        
     @Mapping(target = "technologies", ignore = true)
     GetAllProgrammingLanguagesResponse toGetAllProgrammingLanguagesResponse(ProgrammingLanguage programmingLanguage);
     
