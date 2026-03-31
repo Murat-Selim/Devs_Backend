@@ -1,0 +1,56 @@
+{
+  "name": "devs-mcp-server",
+  "version": "1.0.0",
+  "type": "SYNC",
+  "stdio": true,
+  "tools": [
+    {
+      "name": "getAll",
+      "description": "Get all programming languages from the database. Returns a list of all programming languages with their IDs and names."
+    },
+    {
+      "name": "getByIdLanguage",
+      "description": "Get a specific programming language by its ID. Returns the programming language details if found."
+    },
+    {
+      "name": "add",
+      "description": "Create a new programming language in the database. The name must be unique and between 2-50 characters."
+    },
+    {
+      "name": "update",
+      "description": "Update an existing programming language by ID. The name must be unique and between 2-50 characters."
+    },
+    {
+      "name": "delete",
+      "description": "Delete a programming language by its ID. This will also delete all associated technologies."
+    },
+    {
+      "name": "getAllTechnologies",
+      "description": "Get all technologies from the database. Returns a list of all technologies with their IDs and names."
+    },
+    {
+      "name": "getByIdTechnology",
+      "description": "Get a specific technology by its ID. Returns the technology details if found."
+    },
+    {
+      "name": "addTechnology",
+      "description": "Create a new technology in the database. The name must be unique and between 2-50 characters."
+    },
+    {
+      "name": "updateTechnology",
+      "description": "Update an existing technology by ID. The name must be unique and between 2-50 characters."
+    },
+    {
+      "name": "deleteTechnology",
+      "description": "Delete a technology by its ID."
+    },
+    {
+      "name": "register",
+      "description": "Register a new user in the system. Creates a user account with the specified username, password, and role. Returns a JWT token for authentication."
+    },
+    {
+      "name": "login",
+      "description": "Login to the system with existing credentials. Returns a JWT token for authentication that can be used for subsequent API calls."
+    }
+  ]
+}

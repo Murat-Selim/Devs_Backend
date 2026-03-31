@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "devs-mcp-server": {
+      "command": "java",
+      "args": [
+        "-jar",
+        "/path/to/Devs-0.0.1-SNAPSHOT.jar"
+      ],
+      "env": {}
+    }
+  }
+}
