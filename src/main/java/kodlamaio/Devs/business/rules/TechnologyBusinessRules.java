@@ -1,5 +1,6 @@
 package kodlamaio.Devs.business.rules;
 
+import kodlamaio.Devs.business.constants.TechnologyMessages;
 import kodlamaio.Devs.core.exceptions.BusinessException;
 import kodlamaio.Devs.core.exceptions.NotFoundException;
 import kodlamaio.Devs.core.exceptions.ValidationException;
@@ -19,7 +20,7 @@ public class TechnologyBusinessRules {
     
     public void checkIfTechnologyNameIsEmpty(String name) {
         if (name == null || name.trim().isEmpty()) {
-            throw new ValidationException("Technology name cannot be empty.");
+            throw new ValidationException(TechnologyMessages.NAME_CANNOT_BE_EMPTY);
         }
     }
     
@@ -27,7 +28,7 @@ public class TechnologyBusinessRules {
         List<Technology> technologies = technologyRepository.findAll();
         for (Technology technology : technologies) {
             if (technology.getName().equalsIgnoreCase(name)) {
-                throw new BusinessException("Technology already exists: " + name);
+                throw new BusinessException(TechnologyMessages.ALREADY_EXISTS + name);
             }
         }
     }
@@ -36,14 +37,14 @@ public class TechnologyBusinessRules {
         List<Technology> technologies = technologyRepository.findAll();
         for (Technology technology : technologies) {
             if (technology.getName().equalsIgnoreCase(name) && technology.getId() != id) {
-                throw new BusinessException("Technology already exists: " + name);
+                throw new BusinessException(TechnologyMessages.ALREADY_EXISTS + name);
             }
         }
     }
     
     public void checkIfTechnologyExistsById(int id) {
         if (!technologyRepository.existsById(id)) {
-            throw new NotFoundException("Technology not found with id: " + id);
+            throw new NotFoundException(TechnologyMessages.NOT_FOUND + id);
         }
     }
 }

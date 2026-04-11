@@ -1,5 +1,6 @@
 package kodlamaio.Devs.business.rules;
 
+import kodlamaio.Devs.business.constants.ProgrammingLanguageMessages;
 import kodlamaio.Devs.core.exceptions.BusinessException;
 import kodlamaio.Devs.core.exceptions.NotFoundException;
 import kodlamaio.Devs.core.exceptions.ValidationException;
@@ -19,7 +20,7 @@ public class ProgrammingLanguageBusinessRules {
     
     public void checkIfProgrammingLanguageNameIsEmpty(String name) {
         if (name == null || name.trim().isEmpty()) {
-            throw new ValidationException("Programming language name cannot be empty.");
+            throw new ValidationException(ProgrammingLanguageMessages.NAME_CANNOT_BE_EMPTY);
         }
     }
     
@@ -27,7 +28,7 @@ public class ProgrammingLanguageBusinessRules {
         List<ProgrammingLanguage> languages = programmingLanguageRepository.findAll();
         for (ProgrammingLanguage language : languages) {
             if (language.getName().equalsIgnoreCase(name)) {
-                throw new BusinessException("Programming language already exists: " + name);
+                throw new BusinessException(ProgrammingLanguageMessages.ALREADY_EXISTS + name);
             }
         }
     }
@@ -36,14 +37,14 @@ public class ProgrammingLanguageBusinessRules {
         List<ProgrammingLanguage> languages = programmingLanguageRepository.findAll();
         for (ProgrammingLanguage language : languages) {
             if (language.getName().equalsIgnoreCase(name) && language.getId() != id) {
-                throw new BusinessException("Programming language already exists: " + name);
+                throw new BusinessException(ProgrammingLanguageMessages.ALREADY_EXISTS + name);
             }
         }
     }
     
     public void checkIfProgrammingLanguageExistsById(int id) {
         if (!programmingLanguageRepository.existsById(id)) {
-            throw new NotFoundException("Programming language not found with id: " + id);
+            throw new NotFoundException(ProgrammingLanguageMessages.NOT_FOUND + id);
         }
     }
 }
